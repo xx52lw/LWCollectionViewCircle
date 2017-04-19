@@ -18,31 +18,31 @@ class LWCircleLayout: UICollectionViewFlowLayout {
     
     
     
-    override func prepareLayout() {
-        super.prepareLayout()
+    override func prepare() {
+        super.prepare()
         self.collectSize = self.collectionView?.frame.size
-        self.cellCount   = self.collectionView?.numberOfItemsInSection(0)
-        self.center      = CGPointMake(self.collectSize!.width * 0.5, self.collectSize!.height * 0.5)
+        self.cellCount   = self.collectionView?.numberOfItems(inSection: 0)
+        self.center      = CGPoint(x: self.collectSize!.width * 0.5, y: self.collectSize!.height * 0.5)
         self.radius      = min(self.collectSize!.width, self.collectSize!.height)/2.5
     }
     
-    override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         var attributesArray = [UICollectionViewLayoutAttributes]()
         if let count = self.cellCount {
             for i in 0..<count {
-                let indexPath = NSIndexPath(forItem: i, inSection: 0)
-                let attributes = self.layoutAttributesForItemAtIndexPath(indexPath)
+                let indexPath = IndexPath(item: i, section: 0)
+                let attributes = self.layoutAttributesForItem(at: indexPath)
                 attributesArray.append(attributes!)
             }
         }
         return attributesArray
     }
-    override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
-        let attrs = UICollectionViewLayoutAttributes(forCellWithIndexPath: indexPath)
-        attrs.size = CGSizeMake(60, 60)
+    override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        let attrs = UICollectionViewLayoutAttributes(forCellWith: indexPath)
+        attrs.size = CGSize(width: 60, height: 60)
         let x = Double(self.center!.x) + Double(self.radius!) * cos(Double(2 * indexPath.item) * M_PI/Double(self.cellCount!))
         let y = Double(self.center!.y) + Double(self.radius!) * sin(Double(2 * indexPath.item) * M_PI/Double(self.cellCount!))
-        attrs.center = CGPointMake(CGFloat(x) ,CGFloat(y))
+        attrs.center = CGPoint(x: CGFloat(x) ,y: CGFloat(y))
         return attrs
     }
     

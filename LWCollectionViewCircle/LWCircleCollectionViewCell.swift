@@ -12,7 +12,7 @@ class LWCircleCollectionViewCell: UICollectionViewCell {
     // MARK : - 懒加载textLabel
   lazy var imageView : UIImageView = {
         let imageV = UIImageView()
-        imageV.contentMode = .ScaleAspectFill
+        imageV.contentMode = .scaleAspectFill
         return imageV
     }()
     
