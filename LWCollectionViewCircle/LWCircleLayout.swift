@@ -46,4 +46,17 @@ class LWCircleLayout: UICollectionViewFlowLayout {
         return attrs
     }
     
+    /// 修正collection布局有缝隙
+    func fixSlit(width: inout CGFloat, colCount: CGFloat, space: CGFloat = 0) -> CGFloat {
+        let totalSpace = (colCount - 1) * space
+        let itemWidth = (width - totalSpace) / colCount
+        let fixValue = 1 / UIScreen.main.scale
+        var realItemWidth = floor(itemWidth) + fixValue
+        if realItemWidth < itemWidth {
+            realItemWidth += fixValue
+        }
+        let realWidth = colCount * realItemWidth + totalSpace
+        return (realWidth - totalSpace) / colCount
+    }
+    
 }

@@ -39,4 +39,18 @@
     return attributesArray;
 }
 
+#pragma mark - 修复间隙
+- (CGFloat)fixSlitWidth:(CGFloat) width colCount:(CGFloat) colCount space:(CGFloat)space {
+    CGFloat totalSpace = (colCount - 1) * space;
+    CGFloat itemWidth = (width - totalSpace) / colCount;
+    CGFloat fixValue = 1 / [UIScreen mainScreen].scale;
+    CGFloat realItemWidth = floor(itemWidth) + fixValue;
+    if (realItemWidth < itemWidth) {
+        realItemWidth += fixValue;
+    }
+    CGFloat realWidth = colCount * realItemWidth + totalSpace;
+    return (realWidth - totalSpace) / colCount;
+}
+
+
 @end
